@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effc16a6e1f7eb5488f3e265650c816c, type: 3}
   m_Name: IKTargetSettings
   m_EditorClassIdentifier: 
-  stepDistance: 4
+  stepDistance: 2
   stepHeight: 3
   speed: 6.5
   additionVectorMultiplier: 8

@@ -9,5 +9,6 @@ public class IKTargetSettingsSO : ScriptableObject {
     public float additionVectorMultiplier;
     public float rayVerticalOffset;
     public float additionVectorResetSpeed;
+    public float additionVectorBlendSpeed;
     
 }
