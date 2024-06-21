@@ -6,6 +6,7 @@ public class IKBodyVisual : MonoBehaviour {
     [SerializeField] private Transform[] IKTargetsLeft;
     [SerializeField] private Transform[] IKTargetsRight;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private float blend = 0.1f;
     private Vector3 averageTransformLeft;
     private Vector3 averageTransformRight;
     private Vector3 averageTransform;
@@ -30,7 +31,8 @@ public class IKBodyVisual : MonoBehaviour {
         averageTransform = (averageTransformLeft + averageTransformRight) / 2;
 
         //Calculate tilt by getting the difference between Left and Right Averages
-        tilt = averageTransformLeft - averageTransformRight;
+        tilt = averageTransformRight-averageTransformLeft ;
+        
         Vector3 newRotation = originalRotation + tilt;
         //Tilt the body based on the new rotation
         transform.localRotation = Quaternion.Euler(newRotation);
@@ -38,10 +40,9 @@ public class IKBodyVisual : MonoBehaviour {
         //Move the body to the average position of the IKTargets
         //Interpolate between previous position and new average position at 10%
         //Basically damp the effect
-        float blend = 0.1f;
+       
         transform.position = Vector3.Lerp(transform.position, averageTransform + offset, blend);
 
     }
-
 
 }

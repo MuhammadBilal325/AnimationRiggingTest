@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IKBoneTarget : MonoBehaviour {
@@ -26,7 +27,7 @@ public class IKBoneTarget : MonoBehaviour {
         newPosition = transform.position;
         oldPosition = transform.position;
         additionVector = Vector3.zero;
-        
+
     }
 
     // Update is called once per frame
@@ -34,20 +35,23 @@ public class IKBoneTarget : MonoBehaviour {
         transform.position = currentPosition;
         Vector2 inputVector = GameInput.Instance.GetPlayerMovementVectorNormalized();
         Vector3 inputVector3 = new Vector3(inputVector.x, 0, inputVector.y);
-        if (inputVector3 != additionVector && inputVector3 != Vector3.zero) {
+        if (inputVector3 != Vector3.zero) {
             additionVector = inputVector3;
             additionVector *= ikTargetSettings.stepDistance;
         }
-        Ray ray = new Ray(body.position + offsetVector + new Vector3(0, 1, 0), Vector3.down);
-
-        if (!isMoving)
+        Vector3 rayOrigin = body.position + offsetVector +additionVector;
+        float rayVerticalOffset = 6f;
+        rayOrigin.y += rayVerticalOffset;
+        Ray ray = new Ray(rayOrigin, Vector3.down);
+        Debug.DrawRay(rayOrigin, Vector3.down * 10, Color.red);
+        if (!isMoving) {
             if (Physics.Raycast(ray, out RaycastHit info, 10)) {
-                info.point -= new Vector3(0, 1, 0);
                 if (Vector3.Distance(newPosition, info.point) > ikTargetSettings.stepDistance) {
-                    newPosition = info.point + additionVector;
+                    newPosition = info.point;
                     lerp = 0;
                 }
             }
+        }
         if (lerp < 1f && oppositeLeg.IsGrounded()) {
             isMoving = true;
             Vector3 footPosition = Vector3.Lerp(oldPosition, newPosition, lerp);
@@ -55,7 +59,7 @@ public class IKBoneTarget : MonoBehaviour {
             currentPosition = footPosition;
             lerp += Time.deltaTime * ikTargetSettings.speed;
         }
-        else if(lerp>1f) {
+        else if (lerp > 1f) {
             isMoving = false;
             oldPosition = newPosition;
         }
@@ -64,11 +68,9 @@ public class IKBoneTarget : MonoBehaviour {
     public bool IsGrounded() {
         return !isMoving;
     }
-    //private void OnDrawGizmos() {
+    private void OnDrawGizmos() {
 
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawSphere(newPosition, 1f);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawSphere(raycastPosition, 1f);
-    //}
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(newPosition, 1f);
+    }
 }
