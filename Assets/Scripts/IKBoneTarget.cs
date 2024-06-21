@@ -48,7 +48,7 @@ public class IKBoneTarget : MonoBehaviour {
             if (Physics.Raycast(ray, out RaycastHit info, ikTargetSettings.rayVerticalOffset + 3)) {
                 if (Vector3.Distance(newPosition, info.point) > ikTargetSettings.stepDistance) {
                     newPosition = info.point;
-                    lerp = 0;
+                    lerp = 0f;
                 }
             }
         }
@@ -58,8 +58,9 @@ public class IKBoneTarget : MonoBehaviour {
             footPosition.y += Mathf.Sin(lerp * Mathf.PI) * ikTargetSettings.stepHeight;
             currentPosition = footPosition;
             lerp += Time.deltaTime * ikTargetSettings.speed;
+
         }
-        else if (lerp > 1f) {
+        if (lerp > 1f) {
             isMoving = false;
             oldPosition = newPosition;
         }
