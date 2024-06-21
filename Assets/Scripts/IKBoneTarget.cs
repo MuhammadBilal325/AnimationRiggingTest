@@ -7,7 +7,7 @@ public class IKBoneTarget : MonoBehaviour {
     [SerializeField] private IKBoneTarget oppositeLeg;
     [SerializeField] private Transform body;
     [SerializeField] private IKTargetSettingsSO ikTargetSettings;
-    private float lerp = 1f;
+    private float lerp = 0f;
     //Current position of the leg
     private Vector3 currentPosition;
     //Addition vector added to the newPosition based on user input
@@ -38,9 +38,8 @@ public class IKBoneTarget : MonoBehaviour {
             additionVector = Vector3.Lerp(additionVector, Vector3.zero, Time.deltaTime * ikTargetSettings.additionVectorResetSpeed);
         }
         else {
-            Vector3 newadditionVector = new Vector3(inputVector.x, 0, inputVector.y);
-            newadditionVector *= ikTargetSettings.additionVectorMultiplier;
-            additionVector = Vector3.Lerp(additionVector, newadditionVector, Time.deltaTime * ikTargetSettings.additionVectorBlendSpeed);
+            additionVector = new Vector3(inputVector.x, 0, inputVector.y);
+            additionVector *= ikTargetSettings.additionVectorMultiplier;
         }
         Vector3 rayOrigin = body.position + offsetVector + additionVector;
         rayOrigin.y += ikTargetSettings.rayVerticalOffset;
