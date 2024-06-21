@@ -31,17 +31,18 @@ public class IKBodyVisual : MonoBehaviour {
         averageTransform = (averageTransformLeft + averageTransformRight) / 2;
 
         //Calculate tilt by getting the difference between Left and Right Averages
-        tilt = averageTransformRight-averageTransformLeft ;
-        
+        tilt = averageTransformRight - averageTransformLeft;
+
         Vector3 newRotation = originalRotation + tilt;
         //Tilt the body based on the new rotation
         transform.localRotation = Quaternion.Euler(newRotation);
-        
+
         //Move the body to the average position of the IKTargets
         //Interpolate between previous position and new average position at 10%
         //Basically damp the effect
-       
-        transform.position = Vector3.Lerp(transform.position, averageTransform + offset, blend);
+
+        Vector3 newTransform = Vector3.Lerp(transform.position, averageTransform + offset, blend);
+        transform.position = new Vector3(transform.position.x, newTransform.y, transform.position.z);
 
     }
 

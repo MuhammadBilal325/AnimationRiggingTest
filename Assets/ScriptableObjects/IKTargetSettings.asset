@@ -12,9 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effc16a6e1f7eb5488f3e265650c816c, type: 3}
   m_Name: IKTargetSettings
   m_EditorClassIdentifier: 
-  stepDistance: 3
-  stepHeight: 3
-  speed: 7
-  additionVectorMultiplier: 5
+  stepDistance: 4
+  stepHeight: 2
+  speed: 5
   rayVerticalOffset: 10
-  additionVectorResetSpeed: 5
+  globalMovementVectorMultiplier: 10
+  movementVectorResetSpeed: 6
+  restRadius: 0
+  stepHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.15786871
+      outSlope: -0.15786871
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.17945383
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 1.5255874
+      outSlope: 1.5255874
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.092327714
+      outWeight: 0.10273087
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.4115112
+      outSlope: -0.4115112
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19505847
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
