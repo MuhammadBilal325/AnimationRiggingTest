@@ -16,3 +16,5 @@ MonoBehaviour:
   stepHeight: 3
   speed: 6.5
   additionVectorMultiplier: 8
+  rayVerticalOffset: 10
+  additionVectorResetSpeed: 1.5

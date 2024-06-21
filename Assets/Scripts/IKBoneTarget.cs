@@ -34,12 +34,16 @@ public class IKBoneTarget : MonoBehaviour {
     private void Update() {
         transform.position = currentPosition;
         Vector2 inputVector = GameInput.Instance.GetPlayerMovementVectorNormalized();
-        additionVector = new Vector3(inputVector.x, 0, inputVector.y);
-        additionVector *= ikTargetSettings.additionVectorMultiplier;
-
+        if (inputVector == Vector2.zero) {
+            
+            additionVector = Vector3.Lerp(additionVector, Vector3.zero, Time.deltaTime * ikTargetSettings.additionVectorResetSpeed);
+        }
+        else {
+            additionVector = new Vector3(inputVector.x, 0, inputVector.y);
+            additionVector *= ikTargetSettings.additionVectorMultiplier;
+        }
         Vector3 rayOrigin = body.position + offsetVector + additionVector;
-        float rayVerticalOffset = 6f;
-        rayOrigin.y += rayVerticalOffset;
+        rayOrigin.y += ikTargetSettings.rayVerticalOffset;
         Ray ray = new Ray(rayOrigin, Vector3.down);
         if (!isMoving) {
             if (Physics.Raycast(ray, out RaycastHit info, 10)) {
