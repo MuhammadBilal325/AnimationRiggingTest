@@ -1940,7 +1940,7 @@ MonoBehaviour:
   - {fileID: 1665125774}
   - {fileID: 1484916330}
   offset: {x: 0, y: 3, z: 0}
-  blend: 0.1
+  blend: 0.5
 --- !u!1 &1665125773
 GameObject:
   m_ObjectHideFlags: 0

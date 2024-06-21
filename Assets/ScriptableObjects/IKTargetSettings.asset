@@ -15,3 +15,4 @@ MonoBehaviour:
   stepDistance: 4
   stepHeight: 3
   speed: 6.5
+  additionVectorMultiplier: 8
