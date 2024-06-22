@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
+    public event EventHandler OnRotateViewInput;
     public event EventHandler OnMovementInput;
     public static GameInput Instance { get; private set; }
     private PlayerInputActions playerInputActions;
@@ -12,7 +13,12 @@ public class GameInput : MonoBehaviour
         Instance = this;
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.MovementWASD.performed += MovementWASD_performed;
+        playerInputActions.Player.RotateView.performed += RotateView_performed;
         playerInputActions.Player.Enable();
+    }
+
+    private void RotateView_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+        OnRotateViewInput?.Invoke(this, EventArgs.Empty);
     }
 
     private void MovementWASD_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {

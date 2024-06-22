@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepDistance: 4
   stepHeight: 2
-  speed: 5
+  speed: 4
   rayVerticalOffset: 10
-  globalMovementVectorMultiplier: 10
+  globalMovementVectorMultiplier: 9
   movementVectorResetSpeed: 6
-  restRadius: 0
+  restRadius: 4
   stepHeightCurve:
     serializedVersion: 2
     m_Curve:

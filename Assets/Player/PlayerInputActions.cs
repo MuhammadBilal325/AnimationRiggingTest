@@ -35,6 +35,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateView"",
+                    ""type"": ""Button"",
+                    ""id"": ""c86813ac-57d0-44dc-a41f-95a0ef617bee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MovementWASD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b59186f5-d146-4d88-b34a-39f0572b08d2"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MovementWASD = m_Player.FindAction("MovementWASD", throwIfNotFound: true);
+        m_Player_RotateView = m_Player.FindAction("RotateView", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +184,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_MovementWASD;
+    private readonly InputAction m_Player_RotateView;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MovementWASD => m_Wrapper.m_Player_MovementWASD;
+        public InputAction @RotateView => m_Wrapper.m_Player_RotateView;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +203,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MovementWASD.started += instance.OnMovementWASD;
             @MovementWASD.performed += instance.OnMovementWASD;
             @MovementWASD.canceled += instance.OnMovementWASD;
+            @RotateView.started += instance.OnRotateView;
+            @RotateView.performed += instance.OnRotateView;
+            @RotateView.canceled += instance.OnRotateView;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -187,6 +213,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MovementWASD.started -= instance.OnMovementWASD;
             @MovementWASD.performed -= instance.OnMovementWASD;
             @MovementWASD.canceled -= instance.OnMovementWASD;
+            @RotateView.started -= instance.OnRotateView;
+            @RotateView.performed -= instance.OnRotateView;
+            @RotateView.canceled -= instance.OnRotateView;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -207,5 +236,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovementWASD(InputAction.CallbackContext context);
+        void OnRotateView(InputAction.CallbackContext context);
     }
 }
